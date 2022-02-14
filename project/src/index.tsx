@@ -2,8 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
+const Setting = {
+  FILMS_COUNT: 20,
+};
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App
+      filmsCount = {Setting.FILMS_COUNT}
+    />
   </React.StrictMode>,
   document.getElementById('root'));

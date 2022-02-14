@@ -2,11 +2,15 @@ import React from 'react';
 import MainScreen from '../main-screen/main-screen';
 import FilmCard from '../film-card/film-card';
 
-function App(): JSX.Element {
+type AppScreenProps = {
+  filmsCount: number;
+}
+
+function App({filmsCount}: AppScreenProps): JSX.Element {
   return (
     <React.Fragment>
       <FilmCard />
-      <MainScreen />
+      <MainScreen filmsCount={filmsCount}/>
     </React.Fragment>
   );
 }
