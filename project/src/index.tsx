@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app/app';
+import App from './pages/app/app';
 
 const Setting = {
   FILMS_COUNT: 20,

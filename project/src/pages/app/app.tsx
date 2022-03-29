@@ -1,6 +1,6 @@
 import React from 'react';
-import MainScreen from '../main-screen/main-screen';
-import FilmCard from '../film-card/film-card';
+import MainScreen from '../main-page/main-page';
+import FilmCard from '../../components/film-card/film-card';
 
 type AppScreenProps = {
   filmsCount: number;

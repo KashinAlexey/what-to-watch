@@ -1,4 +1,4 @@
-import FilmCardSmall from '../film-card-small/film-card-small';
+import FilmCardSmall from '../../components/film-card-small/film-card-small';
 
 type MainScreenProps = {
   filmsCount: number;
