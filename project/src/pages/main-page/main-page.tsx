@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FilmCard from '../../components/film-card/film-card';
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import GanresFilter from '../../components/genres-filter/genres-filter';
+import ShowMoreBtn from '../../components/show-more-btn/show-more-btn';
 import { Films } from '../../types/film';
 
 type MainPageProps = {
   films: Films;
 }
 
+const FILM_COUNT_PER_STEP = 8;
+
 function MainPage(props: MainPageProps): JSX.Element {
   const {films} = props;
+  const filmCount = films.length;
+  const [renderedFilmCount, setRenderedFilmCount] = useState(FILM_COUNT_PER_STEP);
+
+  const showMoreBtnHandler = () => {
+    const newRenderedFilmCount = renderedFilmCount + FILM_COUNT_PER_STEP;
+    setRenderedFilmCount(newRenderedFilmCount);
+  };
 
   return (
     <React.Fragment>
@@ -21,11 +31,10 @@ function MainPage(props: MainPageProps): JSX.Element {
 
           <GanresFilter />
 
-          <FilmList films={films}/>
+          <FilmList films={films.slice(0, renderedFilmCount)}/>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {renderedFilmCount >= filmCount ? '' : <ShowMoreBtn showMoreBtnHandler={showMoreBtnHandler}/>}
+
         </section>
 
         <Footer />
