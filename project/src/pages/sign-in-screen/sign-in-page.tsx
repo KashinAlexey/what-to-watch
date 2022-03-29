@@ -1,3 +1,4 @@
+import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 
 function SignInPage(): JSX.Element {
@@ -27,13 +28,7 @@ function SignInPage(): JSX.Element {
         </form>
       </div>
 
-      <footer className="page-footer">
-        <Logo subClassName={'logo__link--light'}/>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

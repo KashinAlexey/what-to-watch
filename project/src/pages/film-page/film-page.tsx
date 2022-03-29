@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 
 function FilmPage(): JSX.Element {
@@ -140,13 +141,7 @@ function FilmPage(): JSX.Element {
           </div>
         </section>
 
-        <footer className="page-footer">
-          <Logo subClassName={'logo__link--light'} />
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </React.Fragment>
   );

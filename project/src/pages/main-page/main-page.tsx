@@ -1,7 +1,7 @@
 import React from 'react';
 import FilmCard from '../../components/film-card/film-card';
 import FilmList from '../../components/film-list/film-list';
-import Logo from '../../components/logo/logo';
+import Footer from '../../components/footer/footer';
 import { Films } from '../../types/film';
 
 type MainPageProps = {
@@ -58,13 +58,7 @@ function MainPage(props: MainPageProps): JSX.Element {
           </div>
         </section>
 
-        <footer className="page-footer">
-          <Logo subClassName={'logo__link--light'}/>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </React.Fragment>
   );
