@@ -1,9 +1,11 @@
 import MainPage from '../main-page/main-page';
+import browserHistory from '../../browser-history';
 import SignInPage from '../sign-in-screen/sign-in-page';
 import MyListPage from '../my-list-page/my-list-page';
 import FilmPage from '../film-page/film-page';
+import HistoryRouter from '../../components/history-router/history-router';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Routes } from 'react-router-dom';
 import PrivateRoute from '../../components/private-route/private-route';
 import PlayerPage from '../player-page/player-page';
@@ -18,7 +20,7 @@ const authorizationStatus = AuthorizationStatus.Auth;
 
 function App({filmsCount}: AppScreenProps): JSX.Element {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
@@ -69,7 +71,7 @@ function App({filmsCount}: AppScreenProps): JSX.Element {
           element={<NotFoundPage />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 
