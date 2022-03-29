@@ -4,28 +4,34 @@ import SignInPage from '../sign-in-screen/sign-in-page';
 import MyListPage from '../my-list-page/my-list-page';
 import FilmPage from '../film-page/film-page';
 import HistoryRouter from '../../components/history-router/history-router';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import { Route } from 'react-router-dom';
 import { Routes } from 'react-router-dom';
 import PrivateRoute from '../../components/private-route/private-route';
 import PlayerPage from '../player-page/player-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import AddReviewPage from '../add-review-page/add-review-page';
+import { useAppSelector } from '../../hooks';
+import { isCheckedAuth } from '../../utils';
+import Loading from '../../components/loading/loading';
 
-type AppScreenProps = {
-  filmsCount: number;
-}
+function App(): JSX.Element {
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
+  const {films, isFilmsLoaded} = useAppSelector(({GLOBAL_DATA}) => GLOBAL_DATA);
 
-const authorizationStatus = AuthorizationStatus.Auth;
+  if (isCheckedAuth(authorizationStatus) || !isFilmsLoaded) {
+    return (
+      <Loading />
+    );
+  }
 
-function App({filmsCount}: AppScreenProps): JSX.Element {
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
           element={
-            <MainPage filmsCount={filmsCount} />
+            <MainPage films={films} />
           }
         />
         <Route

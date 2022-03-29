@@ -1,13 +1,14 @@
 import React from 'react';
-import FilmCardSmall from '../../components/film-card-small/film-card-small';
 import FilmCard from '../../components/film-card/film-card';
+import FilmList from '../../components/film-list/film-list';
+import { Films } from '../../types/film';
 
-type MainScreenProps = {
-  filmsCount: number;
+type MainPageProps = {
+  films: Films;
 }
 
-function MainPage({filmsCount}: MainScreenProps): JSX.Element {
-  const filmsCardsSmall: JSX.Element[] = Array.from({length: filmsCount}, FilmCardSmall);
+function MainPage(props: MainPageProps): JSX.Element {
+  const {films} = props;
 
   return (
     <React.Fragment>
@@ -49,9 +50,7 @@ function MainPage({filmsCount}: MainScreenProps): JSX.Element {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {filmsCardsSmall.map((card) => card)}
-          </div>
+          <FilmList films={films}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
