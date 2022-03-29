@@ -1,4 +1,4 @@
-function PlayerScreen(): JSX.Element {
+function PlayerPage(): JSX.Element {
   return (
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
@@ -35,4 +35,4 @@ function PlayerScreen(): JSX.Element {
   );
 }
 
-export default PlayerScreen;
+export default PlayerPage;
