@@ -1,24 +1,43 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Film } from '../../types/film';
+import VideoPlayer from '../video-player/video-player';
 
 type FilmCardSmallProps = {
   film: Film;
 }
 
+const DELAY = 500;
+
 function FilmCardSmall(props: FilmCardSmallProps): JSX.Element {
   const {film} = props;
   const {id, name, previewImage} = film;
+  const [isVideoActive, setIsVideoActive] = useState(false);
+
+  const onMouseOver = () => {
+    setTimeout(() => {
+      setIsVideoActive(true);
+    }, DELAY);
+  };
+
+  const onMouseLeave = () => {
+    setIsVideoActive(false);
+  };
 
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card"
+      onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}
+    >
       <div className="small-film-card__image">
-        <img
-          src={previewImage}
-          alt={name}
-          width="280"
-          height="175"
-        />
+        {isVideoActive ? <VideoPlayer film={film} isActive={isVideoActive} /> :
+          <img
+            src={previewImage}
+            alt={name}
+            width="280"
+            height="175"
+          />}
+
       </div>
       <h3 className="small-film-card__title">
         <Link
