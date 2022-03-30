@@ -16,7 +16,7 @@ function FilmCardSmall(props: FilmCardSmallProps): JSX.Element {
   const [isVideoActive, setIsVideoActive] = useState(false);
   const timerId = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const onMouseOver = () => {
+  const onMouseEnter = () => {
     timerId.current = setTimeout(() => {
       setIsVideoActive(true);
     }, DELAY);
@@ -31,7 +31,7 @@ function FilmCardSmall(props: FilmCardSmallProps): JSX.Element {
 
   return (
     <article className="small-film-card catalog__films-card"
-      onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}
+      onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}
     >
       <div className="small-film-card__image">
         {isVideoActive ? <VideoPlayer film={film} isActive={isVideoActive} /> :

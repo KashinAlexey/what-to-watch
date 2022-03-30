@@ -15,8 +15,6 @@ export const appProcess = createSlice({
     loadPromoFilmAction: (state, action) => {
       state.promoFilm = action.payload;
       state.isPromoFilmLoaded = true;
-      // eslint-disable-next-line no-console
-      console.log(action.payload, state.isPromoFilmLoaded);
     },
   },
 });

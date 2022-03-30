@@ -1,4 +1,10 @@
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { store } from '../../store';
+import { fetchFavoritesAction, fetchSetIsFavoriteAction } from '../../store/api-actions';
 import { Film } from '../../types/film';
+import { isUserAuth } from '../../utils';
 import Logo from '../logo/logo';
 
 type FilmCardProps = {
@@ -7,7 +13,25 @@ type FilmCardProps = {
 
 function FilmCard(props: FilmCardProps): JSX.Element {
   const {promoFilm} = props;
-  const {name, posterImage, backgroundImage, genre, released} = promoFilm;
+  const {id, name, posterImage, backgroundImage, genre, released, isFavorite} = promoFilm;
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
+
+  const navigate = useNavigate();
+
+  const onPlayClick = () => {
+    navigate(`${AppRoute.Player}/${id}`);
+  };
+
+  const onMyListClick = async () => {
+    if (!isUserAuth(authorizationStatus)) {
+      navigate(AppRoute.Login);
+      return;
+    }
+
+    const status = isFavorite ? 0 : 1;
+    await store.dispatch(fetchSetIsFavoriteAction({id, status}));
+    await store.dispatch(fetchFavoritesAction());
+  };
 
   return (
     <section className="film-card">
@@ -57,13 +81,18 @@ function FilmCard(props: FilmCardProps): JSX.Element {
               <button
                 className="btn btn--play film-card__button"
                 type="button"
+                onClick={onPlayClick}
               >
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list film-card__button" type="button">
+              <button
+                className="btn btn--list film-card__button"
+                type="button"
+                onClick={onMyListClick}
+              >
                 <svg viewBox="0 0 19 20" width="19" height="20">
                   <use xlinkHref="#add"></use>
                 </svg>
