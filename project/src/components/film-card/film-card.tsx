@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
@@ -16,8 +17,8 @@ function FilmCard(props: FilmCardProps): JSX.Element {
   const {promoFilm} = props;
   const {id, name, posterImage, backgroundImage, genre, released, isFavorite} = promoFilm;
   const {authorizationStatus} = useAppSelector(({USER}) => USER);
-
   const navigate = useNavigate();
+  const [isChechedFavorite, setIsChechedFavorite] = useState(isFavorite);
 
   const onPlayClick = () => {
     navigate(`${AppRoute.Player}/${id}`);
@@ -29,9 +30,10 @@ function FilmCard(props: FilmCardProps): JSX.Element {
       return;
     }
 
-    const status = isFavorite ? 0 : 1;
+    const status = isChechedFavorite ? 0 : 1;
     await store.dispatch(fetchSetIsFavoriteAction({id, status}));
     await store.dispatch(fetchFavoritesAction());
+    setIsChechedFavorite(!isChechedFavorite);
   };
 
   return (
@@ -84,9 +86,13 @@ function FilmCard(props: FilmCardProps): JSX.Element {
                 type="button"
                 onClick={onMyListClick}
               >
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
+                {isChechedFavorite ?
+                  <svg viewBox="0 0 18 14" width="18" height="14">
+                    <use xlinkHref="#in-list"></use>
+                  </svg> :
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    <use xlinkHref="#add"></use>
+                  </svg>}
                 <span>My list</span>
               </button>
             </div>
