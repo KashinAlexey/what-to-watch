@@ -18,6 +18,7 @@ import { loadPromoFilmAction } from './app-process/app-process';
 import { Comments, ShortComment } from '../types/comment';
 import { User } from '../types/user';
 import { dropLogin, saveLogin } from '../services/login';
+import { dropAvatarUrl, saveAvatarUrl } from '../services/avatar';
 
 export const fetchFilmsAction = createAsyncThunk(
   'data/fetchFilms',
@@ -132,9 +133,10 @@ export const loginAction = createAsyncThunk(
   'user/login',
   async ({login: email, password}: AuthData) => {
     try {
-      const {data: {token}} = await api.post<User>(APIRoute.Login, {email, password});
+      const {data: {token, avatarUrl}} = await api.post<User>(APIRoute.Login, {email, password});
       saveToken(token);
       saveLogin(email);
+      saveAvatarUrl(avatarUrl);
       store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch (error) {
       errorHandle(error);
@@ -150,6 +152,7 @@ export const logoutAction = createAsyncThunk(
       await api.delete(APIRoute.Logout);
       dropToken();
       dropLogin();
+      dropAvatarUrl();
       store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     } catch (error) {
       errorHandle(error);

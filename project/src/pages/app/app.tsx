@@ -1,6 +1,6 @@
 import MainPage from '../main-page/main-page';
 import browserHistory from '../../browser-history';
-import SignInPage from '../sign-in-screen/sign-in-page';
+import SignInPage from '../sign-in-page/sign-in-page';
 import MyListPage from '../my-list-page/my-list-page';
 import FilmPage from '../film-page/film-page';
 import HistoryRouter from '../../components/history-router/history-router';
