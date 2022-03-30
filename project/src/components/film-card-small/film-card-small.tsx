@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Film } from '../../types/film';
@@ -14,15 +14,19 @@ function FilmCardSmall(props: FilmCardSmallProps): JSX.Element {
   const {film} = props;
   const {id, name, previewImage} = film;
   const [isVideoActive, setIsVideoActive] = useState(false);
+  const timerId = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const onMouseOver = () => {
-    setTimeout(() => {
+    timerId.current = setTimeout(() => {
       setIsVideoActive(true);
     }, DELAY);
   };
 
   const onMouseLeave = () => {
-    setIsVideoActive(false);
+    if (timerId.current) {
+      clearTimeout(timerId.current);
+      setIsVideoActive(false);
+    }
   };
 
   return (
