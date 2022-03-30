@@ -4,16 +4,17 @@ import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import GanresFilter from '../../components/genres-filter/genres-filter';
 import ShowMoreBtn from '../../components/show-more-btn/show-more-btn';
-import { Films } from '../../types/film';
+import { Film, Films } from '../../types/film';
 
 type MainPageProps = {
   films: Films;
+  promoFilm: Film;
 }
 
 const FILM_COUNT_PER_STEP = 8;
 
 function MainPage(props: MainPageProps): JSX.Element {
-  const {films} = props;
+  const {films, promoFilm} = props;
   const filmCount = films.length;
   const [renderedFilmCount, setRenderedFilmCount] = useState(FILM_COUNT_PER_STEP);
 
@@ -24,7 +25,7 @@ function MainPage(props: MainPageProps): JSX.Element {
 
   return (
     <React.Fragment>
-      <FilmCard />
+      <FilmCard promoFilm={promoFilm} />
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>

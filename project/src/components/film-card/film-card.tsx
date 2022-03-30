@@ -1,10 +1,21 @@
+import { Film } from '../../types/film';
 import Logo from '../logo/logo';
 
-function FilmCard(): JSX.Element {
+type FilmCardProps = {
+  promoFilm: Film;
+}
+
+function FilmCard(props: FilmCardProps): JSX.Element {
+  const {promoFilm} = props;
+  const {name, posterImage, backgroundImage, genre, released} = promoFilm;
+
   return (
     <section className="film-card">
       <div className="film-card__bg">
-        <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+        <img
+          src={backgroundImage}
+          alt={name}
+        />
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
@@ -27,18 +38,26 @@ function FilmCard(): JSX.Element {
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+            <img
+              src={posterImage}
+              alt={name}
+              width="218"
+              height="327"
+            />
           </div>
 
           <div className="film-card__desc">
-            <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+            <h2 className="film-card__title">{name}</h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">Drama</span>
-              <span className="film-card__year">2014</span>
+              <span className="film-card__genre">{genre}</span>
+              <span className="film-card__year">{released}</span>
             </p>
 
             <div className="film-card__buttons">
-              <button className="btn btn--play film-card__button" type="button">
+              <button
+                className="btn btn--play film-card__button"
+                type="button"
+              >
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>

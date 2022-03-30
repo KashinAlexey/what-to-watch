@@ -5,10 +5,11 @@ import { store } from './store';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { checkAuthAction, fetchFilmsAction } from './store/api-actions';
+import { checkAuthAction, fetchFilmsAction, fetchPromoFilmAction } from './store/api-actions';
 
 store.dispatch(fetchFilmsAction());
 store.dispatch(checkAuthAction());
+store.dispatch(fetchPromoFilmAction());
 
 ReactDOM.render(
   <React.StrictMode>

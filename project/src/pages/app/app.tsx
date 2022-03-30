@@ -18,8 +18,9 @@ import Loading from '../../components/loading/loading';
 function App(): JSX.Element {
   const {authorizationStatus} = useAppSelector(({USER}) => USER);
   const {films, isFilmsLoaded} = useAppSelector(({GLOBAL_DATA}) => GLOBAL_DATA);
+  const {promoFilm, isPromoFilmLoaded} = useAppSelector(({PROCESS}) => PROCESS);
 
-  if (isCheckedAuth(authorizationStatus) || !isFilmsLoaded) {
+  if (isCheckedAuth(authorizationStatus) || !isFilmsLoaded || !isPromoFilmLoaded) {
     return (
       <Loading />
     );
@@ -31,7 +32,10 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.Root}
           element={
-            <MainPage films={films} />
+            <MainPage
+              films={films}
+              promoFilm={promoFilm}
+            />
           }
         />
         <Route
