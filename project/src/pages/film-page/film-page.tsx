@@ -16,6 +16,8 @@ import { fetchFilmAction } from '../../store/api-actions';
 import { fetchSimilarFilmsAction } from '../../store/api-actions';
 import { resetAllFilmAction } from '../../store/app-local-data/app-local-data';
 import { NAVIGATION } from '../../const';
+import FilmCardDetails from '../../components/film-card-details/film-card-details';
+import FilmCardReviews from '../../components/film-card-reviews/film-card-reviews';
 
 function FilmPage(): JSX.Element {
   const params = useParams();
@@ -112,16 +114,32 @@ function FilmPage(): JSX.Element {
                 setNavActive={setNavActive}
               />
 
-              <FilmRating
-                rating={rating}
-                scoresCount={scoresCount}
-              />
+              {navActive === NAVIGATION.OVERVIEW ?
+                (
+                  <FilmRating
+                    rating={rating}
+                    scoresCount={scoresCount}
+                  />
+                ) : ''}
 
-              <FilmCardOverview
-                description={description}
-                director={director}
-                starring={starring}
-              />
+              {navActive === NAVIGATION.OVERVIEW ?
+                (
+                  <FilmCardOverview
+                    description={description}
+                    director={director}
+                    starring={starring}
+                  />
+                ) : ''}
+
+              {navActive === NAVIGATION.DETAILS ?
+                (
+                  <FilmCardDetails />
+                ) : ''}
+
+              {navActive === NAVIGATION.REVIEWS ?
+                (
+                  <FilmCardReviews />
+                ) : ''}
             </div>
           </div>
         </div>
