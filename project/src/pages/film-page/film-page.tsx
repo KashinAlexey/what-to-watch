@@ -2,7 +2,9 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FilmCardSmall from '../../components/film-card-small/film-card-small';
+import FilmCardOverview from '../../components/film-card-overview/film-card-overview';
 import FilmNav from '../../components/film-nav/film-nav';
+import FilmRating from '../../components/film-rating/film-rating';
 import Footer from '../../components/footer/footer';
 import Loading from '../../components/loading/loading';
 import Logo from '../../components/logo/logo';
@@ -13,24 +15,6 @@ import { fetchCommentsAction } from '../../store/api-actions';
 import { fetchFilmAction } from '../../store/api-actions';
 import { fetchSimilarFilmsAction } from '../../store/api-actions';
 import { resetAllFilmAction } from '../../store/app-local-data/app-local-data';
-
-export const getRating = (ratingCount: number) => {
-  let rating = '';
-
-  if (ratingCount > 10) {
-    rating = 'Awesome';
-  } else if (ratingCount <= 10 && ratingCount > 8) {
-    rating = 'Very good';
-  } else if (ratingCount <= 8 && ratingCount > 5) {
-    rating = 'Good';
-  } else if (ratingCount <= 5 && ratingCount > 3) {
-    rating = 'Normal';
-  } else {
-    rating = 'Bad';
-  }
-
-  return rating;
-};
 
 function FilmPage(): JSX.Element {
   const params = useParams();
@@ -123,21 +107,16 @@ function FilmPage(): JSX.Element {
             <div className="film-card__desc">
               <FilmNav />
 
-              <div className="film-rating">
-                <div className="film-rating__score">{rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">{getRating(rating)}</span>
-                  <span className="film-rating__count">{scoresCount} ratings</span>
-                </p>
-              </div>
+              <FilmRating
+                rating={rating}
+                scoresCount={scoresCount}
+              />
 
-              <div className="film-card__text">
-                <p>{description}</p>
-
-                <p className="film-card__director"><strong>Director: {director}</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: {starring.join(', ')}</strong></p>
-              </div>
+              <FilmCardOverview
+                description={description}
+                director={director}
+                starring={starring}
+              />
             </div>
           </div>
         </div>
