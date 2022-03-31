@@ -48,7 +48,7 @@ export const fetchSimilarFilmsAction = createAsyncThunk(
   'data/fetcSimilarFilms',
   async (id: number) => {
     try {
-      const {data} = await api.get<Films>(`${APIRoute.Films}/${id}/${APIRoute.SimilarFilms}`);
+      const {data} = await api.get<Films>(`${APIRoute.Films}/${id}${APIRoute.SimilarFilms}`);
       store.dispatch(loadSimilarFilmsAction(data));
     } catch (error) {
       errorHandle(error);
