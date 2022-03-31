@@ -25,7 +25,7 @@ function FilmPage(): JSX.Element {
   const [selectedFilmId, setSelectedFilmId] = useState<number>(0);
   const [navActive, setNavActive] = useState(NAVIGATION.OVERVIEW);
 
-  const {backgroundImage, name, genre, released, posterImage, rating, scoresCount, description, director, starring} = film;
+  const {backgroundImage, name, genre, released, posterImage, rating, scoresCount, description, director, starring, runTime} = film;
 
   useEffect(() => {
     if (params.id && +params.id !== selectedFilmId) {
@@ -133,7 +133,13 @@ function FilmPage(): JSX.Element {
 
               {navActive === NAVIGATION.DETAILS ?
                 (
-                  <FilmCardDetails />
+                  <FilmCardDetails
+                    director={director}
+                    starring={starring}
+                    runTime={runTime}
+                    genre={genre}
+                    released={released}
+                  />
                 ) : ''}
 
               {navActive === NAVIGATION.REVIEWS ?
