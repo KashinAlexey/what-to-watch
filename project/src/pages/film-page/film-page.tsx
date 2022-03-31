@@ -45,13 +45,6 @@ function FilmPage(): JSX.Element {
     );
   }
 
-  // eslint-disable-next-line no-console
-  console.log(film);
-  // eslint-disable-next-line no-console
-  console.log(similarFilms);
-  // eslint-disable-next-line no-console
-  console.log(comments);
-
   return (
     <React.Fragment>
       <section className="film-card film-card--full">
@@ -144,7 +137,9 @@ function FilmPage(): JSX.Element {
 
               {navActive === NAVIGATION.REVIEWS ?
                 (
-                  <FilmCardReviews />
+                  <FilmCardReviews
+                    comments={comments}
+                  />
                 ) : ''}
             </div>
           </div>
