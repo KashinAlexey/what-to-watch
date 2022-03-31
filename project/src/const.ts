@@ -56,3 +56,9 @@ export const EMPTY_FILM = {
   released: 0,
   isFavorite: false,
 };
+
+export const NAVIGATION = {
+  OVERVIEW: 'Overview',
+  DETAILS: 'Details',
+  REVIEWS: 'Reviews',
+};

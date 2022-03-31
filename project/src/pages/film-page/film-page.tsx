@@ -15,11 +15,13 @@ import { fetchCommentsAction } from '../../store/api-actions';
 import { fetchFilmAction } from '../../store/api-actions';
 import { fetchSimilarFilmsAction } from '../../store/api-actions';
 import { resetAllFilmAction } from '../../store/app-local-data/app-local-data';
+import { NAVIGATION } from '../../const';
 
 function FilmPage(): JSX.Element {
   const params = useParams();
   const {film, similarFilms, comments, isFilmLoaded, isSimilarFilmLoaded, isCommentsLoaded} = useAppSelector(({LOCAL_DATA}) => LOCAL_DATA);
   const [selectedFilmId, setSelectedFilmId] = useState<number>(0);
+  const [navActive, setNavActive] = useState(NAVIGATION.OVERVIEW);
 
   const {backgroundImage, name, genre, released, posterImage, rating, scoresCount, description, director, starring} = film;
 
@@ -105,7 +107,10 @@ function FilmPage(): JSX.Element {
             </div>
 
             <div className="film-card__desc">
-              <FilmNav />
+              <FilmNav
+                navActive={navActive}
+                setNavActive={setNavActive}
+              />
 
               <FilmRating
                 rating={rating}

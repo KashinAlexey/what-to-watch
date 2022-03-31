@@ -1,17 +1,42 @@
-function FilmNav(): JSX.Element {
+import { MouseEvent } from 'react';
+import { Link } from 'react-router-dom';
+import { NAVIGATION } from '../../const';
+
+type FilmNavProps = {
+  navActive: string;
+  setNavActive: (nav: string) => void;
+}
+
+function FilmNav(props: FilmNavProps): JSX.Element {
+  const {navActive, setNavActive} = props;
+
+  const navHandler = (event: MouseEvent<HTMLLIElement>) => {
+    event.preventDefault();
+    setNavActive(event.currentTarget.innerText);
+  };
 
   return (
     <nav className="film-nav film-card__nav">
       <ul className="film-nav__list">
-        <li className="film-nav__item film-nav__item--active">
-          <a href="#section" className="film-nav__link">Overview</a>
-        </li>
-        <li className="film-nav__item">
-          <a href="#section" className="film-nav__link">Details</a>
-        </li>
-        <li className="film-nav__item">
-          <a href="#section" className="film-nav__link">Reviews</a>
-        </li>
+        {Object.entries(NAVIGATION).map((nav, index) => {
+          const [key, value] = nav;
+          const keyValue=`${index}-${key}`;
+          const isActive = navActive === value;
+          return (
+            <li
+              key={keyValue}
+              className={`film-nav__item ${isActive ? 'film-nav__item--active' : ''}`}
+              onClick={navHandler}
+            >
+              <Link
+                to=""
+                className="film-nav__link"
+              >
+                {value}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );
