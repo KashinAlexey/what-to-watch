@@ -62,3 +62,6 @@ export const NAVIGATION = {
   DETAILS: 'Details',
   REVIEWS: 'Reviews',
 };
+
+export const MAX_REVIEW_LENGTH = 400;
+export const MIN_REVIEW_LENGTH = 50;
