@@ -61,7 +61,7 @@ function FilmCardBtn(props: FilmCardBtnProps): JSX.Element {
           </svg>}
         <span>My list</span>
       </button>
-      {isPromo ? '' :
+      {isPromo || !isUserAuth(authorizationStatus) ? '' :
         <Link to={`${AppRoute.Film}/${id}${AppRoute.AddReview}`} className="btn film-card__button">Add review</Link>}
     </div>
   );
