@@ -1,11 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { store } from '../../store';
-import { fetchFavoritesAction, fetchSetIsFavoriteAction } from '../../store/api-actions';
 import { Film } from '../../types/film';
-import { isUserAuth } from '../../utils';
+import FilmCardBtn from '../film-card-btn/film-card-btn';
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 
@@ -15,26 +9,8 @@ type FilmCardProps = {
 
 function FilmCard(props: FilmCardProps): JSX.Element {
   const {promoFilm} = props;
+  const isPromo = true;
   const {id, name, posterImage, backgroundImage, genre, released, isFavorite} = promoFilm;
-  const {authorizationStatus} = useAppSelector(({USER}) => USER);
-  const navigate = useNavigate();
-  const [isChechedFavorite, setIsChechedFavorite] = useState(isFavorite);
-
-  const onPlayClick = () => {
-    navigate(`${AppRoute.Player}/${id}`);
-  };
-
-  const onMyListClick = async () => {
-    if (!isUserAuth(authorizationStatus)) {
-      navigate(AppRoute.Login);
-      return;
-    }
-
-    const status = isChechedFavorite ? 0 : 1;
-    await store.dispatch(fetchSetIsFavoriteAction({id, status}));
-    await store.dispatch(fetchFavoritesAction());
-    setIsChechedFavorite(!isChechedFavorite);
-  };
 
   return (
     <section className="film-card">
@@ -70,32 +46,11 @@ function FilmCard(props: FilmCardProps): JSX.Element {
               <span className="film-card__year">{released}</span>
             </p>
 
-            <div className="film-card__buttons">
-              <button
-                className="btn btn--play film-card__button"
-                type="button"
-                onClick={onPlayClick}
-              >
-                <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use xlinkHref="#play-s"></use>
-                </svg>
-                <span>Play</span>
-              </button>
-              <button
-                className="btn btn--list film-card__button"
-                type="button"
-                onClick={onMyListClick}
-              >
-                {isChechedFavorite ?
-                  <svg viewBox="0 0 18 14" width="18" height="14">
-                    <use xlinkHref="#in-list"></use>
-                  </svg> :
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>}
-                <span>My list</span>
-              </button>
-            </div>
+            <FilmCardBtn
+              isFavorite={isFavorite}
+              id={id}
+              isPromo={isPromo}
+            />
           </div>
         </div>
       </div>

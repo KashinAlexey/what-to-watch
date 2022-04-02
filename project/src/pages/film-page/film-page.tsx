@@ -18,14 +18,16 @@ import { resetAllFilmAction } from '../../store/app-local-data/app-local-data';
 import { NAVIGATION } from '../../const';
 import FilmCardDetails from '../../components/film-card-details/film-card-details';
 import FilmCardReviews from '../../components/film-card-reviews/film-card-reviews';
+import FilmCardBtn from '../../components/film-card-btn/film-card-btn';
 
 function FilmPage(): JSX.Element {
   const params = useParams();
+  const isPromo = false;
   const {film, similarFilms, comments, isFilmLoaded, isSimilarFilmLoaded, isCommentsLoaded} = useAppSelector(({LOCAL_DATA}) => LOCAL_DATA);
   const [selectedFilmId, setSelectedFilmId] = useState<number>(0);
   const [navActive, setNavActive] = useState(NAVIGATION.OVERVIEW);
 
-  const {backgroundImage, name, genre, released, posterImage, rating, scoresCount, description, director, starring, runTime} = film;
+  const {isFavorite, id, backgroundImage, name, genre, released, posterImage, rating, scoresCount, description, director, starring, runTime} = film;
 
   useEffect(() => {
     if (params.id && +params.id !== selectedFilmId) {
@@ -71,21 +73,11 @@ function FilmPage(): JSX.Element {
                 <span className="film-card__year">{released}</span>
               </p>
 
-              <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
-              </div>
+              <FilmCardBtn
+                isFavorite={isFavorite}
+                id={id}
+                isPromo={isPromo}
+              />
             </div>
           </div>
         </div>
