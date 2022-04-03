@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import Catalog from '../../components/catalog/catalog';
 import Footer from '../../components/footer/footer';
-import Loading from '../../components/loading/loading';
 import Logo from '../../components/logo/logo';
+import Spinner from '../../components/spinner/spinner';
 import UserBlock from '../../components/user-block/user-block';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
@@ -17,7 +17,7 @@ function MyListPage(): JSX.Element {
 
   if (!isFavoritesLoaded) {
     return (
-      <Loading />
+      <Spinner />
     );
   }
 

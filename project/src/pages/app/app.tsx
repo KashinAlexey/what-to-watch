@@ -13,7 +13,7 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import AddReviewPage from '../add-review-page/add-review-page';
 import { useAppSelector } from '../../hooks';
 import { isCheckedAuth } from '../../utils';
-import Loading from '../../components/loading/loading';
+import Spinner from '../../components/spinner/spinner';
 
 function App(): JSX.Element {
   const {authorizationStatus} = useAppSelector(({USER}) => USER);
@@ -22,7 +22,7 @@ function App(): JSX.Element {
 
   if (isCheckedAuth(authorizationStatus) || !isFilmsLoaded || !isPromoFilmLoaded) {
     return (
-      <Loading />
+      <Spinner />
     );
   }
 

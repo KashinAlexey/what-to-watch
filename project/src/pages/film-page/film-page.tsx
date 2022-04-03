@@ -6,7 +6,6 @@ import FilmCardOverview from '../../components/film-card-overview/film-card-over
 import FilmNav from '../../components/film-nav/film-nav';
 import FilmRating from '../../components/film-rating/film-rating';
 import Footer from '../../components/footer/footer';
-import Loading from '../../components/loading/loading';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import { useAppSelector } from '../../hooks';
@@ -19,6 +18,7 @@ import { NAVIGATION } from '../../const';
 import FilmCardDetails from '../../components/film-card-details/film-card-details';
 import FilmCardReviews from '../../components/film-card-reviews/film-card-reviews';
 import FilmCardBtn from '../../components/film-card-btn/film-card-btn';
+import Spinner from '../../components/spinner/spinner';
 
 function FilmPage(): JSX.Element {
   const params = useParams();
@@ -43,7 +43,7 @@ function FilmPage(): JSX.Element {
 
   if (!isLoaded) {
     return (
-      <Loading />
+      <Spinner />
     );
   }
 

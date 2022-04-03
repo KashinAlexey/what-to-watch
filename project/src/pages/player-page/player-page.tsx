@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Loading from '../../components/loading/loading';
+import Spinner from '../../components/spinner/spinner';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
@@ -39,7 +39,7 @@ function PlayerPage(): JSX.Element {
 
   if (!isFilmLoaded) {
     return (
-      <Loading />
+      <Spinner />
     );
   }
 
