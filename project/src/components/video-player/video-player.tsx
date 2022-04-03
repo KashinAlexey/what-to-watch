@@ -18,7 +18,10 @@ function VideoPlayer(props: VideoPlayerProps): JSX.Element {
 
     if (isActive) {
       videoRef.current.play();
+    } else {
+      videoRef.current.pause();
     }
+
   }, [isActive]);
 
   return (
@@ -29,6 +32,7 @@ function VideoPlayer(props: VideoPlayerProps): JSX.Element {
       width="100%"
       height="100%"
       muted
+      hidden={!isActive}
     />
   );
 }

@@ -30,25 +30,35 @@ function FilmCardSmall(props: FilmCardSmallProps): JSX.Element {
     }
   };
 
+  const onMouseClick = () => {
+    if (timerId.current) {
+      clearTimeout(timerId.current);
+      setIsVideoActive(false);
+    }
+  };
+
   return (
     <article
       className="small-film-card catalog__films-card"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      onClick={() => navigate(`${AppRoute.Film}/${id}`)}
+      onClick={() => {
+        onMouseClick();
+        navigate(`${AppRoute.Film}/${id}`);
+      }}
     >
       <div className="small-film-card__image">
-        {isVideoActive ?
-          <VideoPlayer
-            film={film}
-            isActive={isVideoActive}
-          /> :
-          <img
-            src={previewImage}
-            alt={name}
-            width="280"
-            height="175"
-          />}
+        <VideoPlayer
+          film={film}
+          isActive={isVideoActive}
+        />
+        <img
+          hidden={isVideoActive}
+          src={previewImage}
+          alt={name}
+          width="280"
+          height="175"
+        />
       </div>
       <h3 className="small-film-card__title">
         <Link
