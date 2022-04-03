@@ -1,33 +1,26 @@
 import { Link } from 'react-router-dom';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent } from 'react';
+import { useAppSelector } from '../../hooks';
 
-const GENRES = {
-  ALL_GENRES: 'All genres',
-  COMEDIES: 'Comedies',
-  CRIME: 'Crime',
-  DOCUMENTARY: 'Documentary',
-  DRAMAS: 'Dramas',
-  HORROR: 'Horror',
-  KIDS_FAMILY: 'Kids & Family',
-  ROMANCE: 'Romance',
-  SCI_FI: 'Sci-F',
-  THRILLERS: 'Thrillers',
-};
+type GanresFilterProps = {
+  genreActive: string;
+  changeGanre: (genre: string) => void;
+}
 
-function GanresFilter(): JSX.Element {
-  const [genreActive, setGenreActive] = useState(GENRES.ALL_GENRES);
+function GanresFilter(props: GanresFilterProps): JSX.Element {
+  const {genreActive, changeGanre} = props;
+  const {genres} = useAppSelector(({GLOBAL_DATA}) => GLOBAL_DATA);
 
   const genresHandler = (event: MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
-    setGenreActive(event.currentTarget.innerText);
+    changeGanre(event.currentTarget.innerText);
   };
 
   return (
     <ul className="catalog__genres-list">
-      {Object.entries(GENRES).map((genre, index) => {
-        const [key, value] = genre;
-        const keyValue=`${index}-${key}`;
-        const isActive = genreActive === value;
+      {genres.map((genre, index) => {
+        const keyValue=`${index}-${genre}`;
+        const isActive = genreActive === genre;
         return (
           <li
             key={keyValue}
@@ -38,7 +31,7 @@ function GanresFilter(): JSX.Element {
               to="/"
               className="catalog__genres-link"
             >
-              {value}
+              {genre}
             </Link>
           </li>
         );

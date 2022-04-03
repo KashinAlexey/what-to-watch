@@ -6,6 +6,7 @@ import { Comments } from './comment.js';
 export type AppGlobalData = {
   films: Films,
   favorites: Films,
+  genres: string[],
   isFilmsLoaded: boolean,
   isFavoritesLoaded: boolean,
 };
