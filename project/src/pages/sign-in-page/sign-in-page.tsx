@@ -1,8 +1,9 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
+import SignInErrors from '../../components/sign-in-errors/sign-in-errors';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import { loginAction } from '../../store/api-actions';
@@ -13,6 +14,7 @@ function SignInPage(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const {authorizationStatus} = useAppSelector(({USER}) => USER);
+  const [error, setError] = useState('');
 
   const onSubmit = (authData: AuthData) => {
     store.dispatch(loginAction(authData));
@@ -27,11 +29,13 @@ function SignInPage(): JSX.Element {
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(login)) {
       toast.error('Email is invalid');
+      setError('email');
       return;
     }
 
     if (!/[a-zA-Z]+[0-9]/.test(password) || !/\d/.test(password) || password.includes(' ')) {
       toast.error('Password is invalid');
+      setError('signIn');
       return;
     }
 
@@ -63,6 +67,7 @@ function SignInPage(): JSX.Element {
             handleSubmit(evt);
           }}
         >
+          <SignInErrors errorType={error}/>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
