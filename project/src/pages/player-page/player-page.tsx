@@ -37,6 +37,12 @@ function PlayerPage(): JSX.Element {
     }
   }, [params]);
 
+  useEffect(() => {
+    if (isFilmLoaded && videoRef.current) {
+      togglePlay();
+    }
+  }, [isFilmLoaded]);
+
   if (!isFilmLoaded) {
     return (
       <Spinner />
