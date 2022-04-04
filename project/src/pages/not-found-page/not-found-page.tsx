@@ -15,7 +15,7 @@ function NotFoundPage(): JSX.Element {
         left: '45%',
         marginRight: '-50%'}}
       >
-        <p>404 Not found</p>
+        <p>404. Page not found</p>
       </div>
     </div>
   );
