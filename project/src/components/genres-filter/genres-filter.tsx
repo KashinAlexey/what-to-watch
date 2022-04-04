@@ -18,7 +18,7 @@ function GanresFilter(props: GanresFilterProps): JSX.Element {
 
   return (
     <ul className="catalog__genres-list">
-      {genres.map((genre, index) => {
+      {genres.slice(0, 9).map((genre, index) => {
         const keyValue=`${index}-${genre}`;
         const isActive = genreActive === genre;
         return (
